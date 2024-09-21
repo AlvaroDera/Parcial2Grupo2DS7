@@ -1,1 +1,1 @@
-# Parcial2Grupo2DS7
+# Parcial 2 Grupo2 DS7
