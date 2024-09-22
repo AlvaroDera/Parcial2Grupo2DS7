@@ -3,9 +3,10 @@ session_start();
 include 'conex.php'; // Archivo para la conexión a la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = htmlspecialchars($_POST['username']);
-    $password = $_POST['password'];
-
+    if (isset($_POST['usuarios']) && isset($_POST['password'])) {
+        $username = htmlspecialchars($_POST['usuario']);
+        $password = $_POST['password'];
+    }
     // Consulta para obtener los datos del usuario
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ?");
     $stmt->execute([$username]);

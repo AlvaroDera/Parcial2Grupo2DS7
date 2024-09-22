@@ -1,30 +1,31 @@
 <?php
-// Incluir archivo de configuración para la conexión a la base de datos
-include('conex.php');
+session_start();
+include 'conex.php'; // Archivo de conexión a la base de datos
 
-// Procesar los datos cuando el formulario sea enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = htmlspecialchars($_POST['usuario']);
-    $pass = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encriptación segura
+    $pass = $_POST['password'];
 
-    // Inserta el nuevo usuario en la base de datos
-    $stmt = $pdo->prepare("INSERT INTO usuarios (username, password) VALUES (?, ?)");
-    $stmt->execute([$user, $pass]);
+    // Buscar el usuario en la base de datos
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ?");
+    $stmt->execute([$user]);
+    $userRecord = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo "Registro exitoso.";
-
-    if ($stmt->rowCount() > 0) {
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $hashed_password = $row['password'];
-
-        // Verificar si la contraseña ingresada coincide con la almacenada
-        if (password_verify($password, $hashed_password)) {
-            echo "Bienvenido, $username!";
+    // Verificar si el usuario está registrado
+    if ($userRecord) {
+        // Si existe, verificar la contraseña
+        if (password_verify($pass, $userRecord['password'])) {
+            // Contraseña correcta, iniciar sesión
+            $_SESSION['username'] = $userRecord['username'];
+            header("Location: dashboard.php"); // Redirigir al área de usuario
+            exit();
         } else {
-            echo "Contraseña incorrecta.";
+            // Contraseña incorrecta
+            echo "Contraseña incorrecta. Inténtalo de nuevo.";
         }
     } else {
-        echo "Usuario no encontrado.";
+        // Usuario no registrado
+        echo "El usuario no está registrado. Por favor, regístrate antes de intentar iniciar sesión.";
     }
 }
 ?>
@@ -39,10 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
   <div class="container">
   <form id="login-form" class="login-form" method="POST">
-  <h2>Iniciar Sesion</h2>
-  <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+  <h2>Iniciar Sesión</h2>
+  <input type="text" id="usuarios" name="usuario" placeholder="Nombre de usuario" required>
   <input type="password" id="password" name="password" placeholder="Contraseña" required>
-  <button type="submit"> Ingresar </button>
+  <button type="submit">Ingresar</button>
 </form>
     <p>¿No tienes cuenta? <a href="registro.php">Registrarse</a></p>
   </div> 

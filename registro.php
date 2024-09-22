@@ -52,6 +52,11 @@
         <input type="email" id="correo_electronico" name="correo_electronico" required><br><br>
 
         <input type="submit" value="Registrar">
-    </form>  </div>
+    </form>
+
+    <!-- Botón de Iniciar Sesión -->
+    <form action="login.php" method="GET">
+        <button type="submit">Iniciar Sesión</button>
+    </form>
 </body>
 </html>
