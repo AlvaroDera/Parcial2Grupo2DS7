@@ -1,3 +1,55 @@
+<?php 
+
+include 'conex.php'; // Incluir el archivo de conexión 
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = htmlspecialchars($_POST['usuario']);
+    $password = $_POST['password']; 
+    $nombre = htmlspecialchars($_POST['nombre']); 
+    $apellido = htmlspecialchars($_POST['apellido']);
+    $estado = htmlspecialchars($_POST['estado_civil']); 
+    $Nacimiento = htmlspecialchars($_POST['fecha_nacimiento']); 
+    $telefono = htmlspecialchars($_POST['telefono']); 
+    $residencia = htmlspecialchars($_POST['residencia']); 
+    $nacionalidad = htmlspecialchars($_POST['nacionalidad']); 
+    $tipoSangre = htmlspecialchars($_POST['tipo_sangre']);  
+    $correo = htmlspecialchars($_POST['correo_electronico']); 
+    $genero = htmlspecialchars($_POST['genero']); 
+    $cedula_pasaporte = htmlspecialchars($_POST['cedula_pasaporte']); 
+
+    $error = false; // Variable para manejar errores
+
+    // Validación de la contraseña
+    if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+        echo "La contraseña debe tener al menos 8 caracteres, incluyendo letras, números y caracteres especiales.<br>";
+        $error = true; // Se establece que hay un error
+    } 
+
+    // Verificar si el nombre de usuario ya está registrado
+    $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = ?");
+    $stmt->execute([$username]);
+    $existingUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($existingUser) {
+        echo "El nombre de usuario ya está en uso.<br>";
+        $error = true; // Se establece que hay un error
+    } 
+// Si no hay errores, continuar con el registro
+    if (!$error) {
+        // Cifrar la contraseña
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Insertar en la base de datos
+        $stmt = $pdo->prepare("INSERT INTO usuarios (username, password, Nombre, Apellido, Estado_Civil, Nacimiento, Telefono, Residencia, Nacionalidad,Sangre,Genero,correo,Cedula_pasaporte) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        
+        if ($stmt->execute([$username, $hashedPassword, $nombre, $apellido, $estado, $Nacimiento, $telefono, $residencia, $nacionalidad, $tipoSangre,$genero,$correo,$cedula_pasaporte])) {
+            echo "Registro exitoso.";
+        } else {
+            echo "Error al registrar el usuario.";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +62,8 @@
 <h2>Registro de Aspirantes</h2>
     <form action="registro.php" method="POST" class="form">
         <label for="usuario">Usuario:</label><br>
-        <input type="text" id="usuario" name="usuario" required><br><br>
+        <input type="text" id="usuario" name="usuario" required > 
+<br><br>
 
         <label for="password">Contraseña:</label><br>
         <input type="password" id="password" name="password" required><br><br>
