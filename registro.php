@@ -94,7 +94,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
 
         <label for="nacionalidad">Nacionalidad:</label><br>
-        <input type="text" id="nacionalidad" name="nacionalidad" required maxlength="10"><br><br>
+        <select id="nacionalidad" name="nacionalidad" required>
+            <option value="Panamá">Panamá</option>
+            <option value="España">España</option>
+            <option value="Francia">Francia</option>  
+            <option value="Costa Rica">Costa Rica</option>  
+            <option value="Mexico">Mexico</option> 
+            <option value="Colombia">Colombia</option> 
+        </select><br><br>
 
         <label for="telefono">Teléfono:</label><br>
         <input type="text" id="telefono" name="telefono" required maxlength="20"><br><br>
