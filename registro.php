@@ -62,23 +62,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <h2>Registro de Aspirantes</h2>
     <form action="registro.php" method="POST" class="form">
         <label for="usuario">Usuario:</label><br>
-        <input type="text" id="usuario" name="usuario" required > 
+        <input type="text" id="usuario" name="usuario" required maxlength="10"> 
 <br><br>
 
         <label for="password">Contraseña:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+        <input type="password" id="password" name="password" required minlength="8" maxlength="15"><br><br>
 
         <label for="cedula_pasaporte">Cédula o Pasaporte:</label><br>
-        <input type="text" id="cedula_pasaporte" name="cedula_pasaporte" required><br><br>
+        <input type="text" id="cedula_pasaporte" name="cedula_pasaporte"  required maxlength="20"><br><br>
 
         <label for="nombre">Nombre:</label><br>
-        <input type="text" id="nombre" name="nombre" required><br><br>
+        <input type="text" id="nombre" name="nombre" required maxlength="10"><br><br>
 
         <label for="apellido">Apellido:</label><br>
-        <input type="text" id="apellido" name="apellido" required><br><br>
+        <input type="text" id="apellido" name="apellido" required maxlength="10"><br><br>
 
         <label for="estado_civil">Estado Civil:</label><br>
-        <input type="text" id="estado_civil" name="estado_civil"><br><br>
+        <input type="text" id="estado_civil" name="estado_civil" required maxlength="10"><br><br>
 
         <label for="genero">Género:</label><br>
         <select id="genero" name="genero" required>
@@ -88,22 +88,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </select><br><br>
 
         <label for="tipo_sangre">Tipo de Sangre:</label><br>
-        <input type="text" id="tipo_sangre" name="tipo_sangre"><br><br>
+        <input type="text" id="tipo_sangre" name="tipo_sangre" required maxlength="4"><br><br>
 
         <label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
 
         <label for="nacionalidad">Nacionalidad:</label><br>
-        <input type="text" id="nacionalidad" name="nacionalidad" required><br><br>
+        <input type="text" id="nacionalidad" name="nacionalidad" required maxlength="4"><br><br>
 
         <label for="telefono">Teléfono:</label><br>
-        <input type="text" id="telefono" name="telefono" required><br><br>
+        <input type="text" id="telefono" name="telefono" required maxlength="20"><br><br>
 
         <label for="residencia">Residencia:</label><br>
-        <input type="text" id="residencia" name="residencia" required><br><br>
+        <input type="text" id="residencia" name="residencia" required maxlength="30"><br><br>
 
         <label for="correo_electronico">Correo Electrónico:</label><br>
-        <input type="email" id="correo_electronico" name="correo_electronico" required><br><br>
+        <input type="email" id="correo_electronico" name="correo_electronico" required maxlength="20"><br><br>
 
         <input type="submit" value="Registrar">
     </form>
