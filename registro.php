@@ -94,13 +94,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required><br><br>
 
         <label for="nacionalidad">Nacionalidad:</label><br>
-        <input type="text" id="nacionalidad" name="nacionalidad" required maxlength="4"><br><br>
+        <input type="text" id="nacionalidad" name="nacionalidad" required maxlength="10"><br><br>
 
         <label for="telefono">Teléfono:</label><br>
         <input type="text" id="telefono" name="telefono" required maxlength="20"><br><br>
 
         <label for="residencia">Residencia:</label><br>
-        <input type="text" id="residencia" name="residencia" required maxlength="30"><br><br>
+        <input type="text" id="residencia" name="residencia" required maxlength="50"><br><br>
 
         <label for="correo_electronico">Correo Electrónico:</label><br>
         <input type="email" id="correo_electronico" name="correo_electronico" required maxlength="20"><br><br>
